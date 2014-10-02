@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Template xmlns="http://wirecloud.conwet.fi.upm.es/ns/template#">
+    <Catalog.ResourceDescription>
+        <Vendor><%= vendor_name %></Vendor>
+        <Name><%= widget_name %></Name>
+        <DisplayName><%= display_name %></DisplayName>
+        <Version><%= version %></Version>
+        <Author><%= authors %></Author>
+        <Mail><%= email %></Mail>
+        <Description><%= description %></Description>
+        <ImageURI>images/catalogue.png</ImageURI>
+        <iPhoneImageURI>images/catalogueSmartphone.png</iPhoneImageURI>
+        <WikiURI><%= wikiUrl %></WikiURI>
+    </Catalog.ResourceDescription>
+    <Platform.Preferences>
+    </Platform.Preferences>
+    <Platform.StateProperties>
+    </Platform.StateProperties>
+    <Platform.Wiring>
+        <InputEndpoint name="urlSlot" type="text" label="Photo URL" description="The URL of a photo" friendcode="url" />
+    </Platform.Wiring>
+
+    <Platform.Link>
+        <XHTML href="index.html" use-platform-style="true"/>
+    </Platform.Link>
+    <Platform.Rendering width="6" height="28"/>
+</Template>
