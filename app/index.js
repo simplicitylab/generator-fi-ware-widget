@@ -11,167 +11,72 @@ module.exports = yeoman.generators.Base.extend({
     },
 
     /**
-     * Prompt for vendor name
+     * Prompt questions
      **/
-    promptVendorName: function () {
+    promptQuestions: function () {
         var done = this.async();
 
-        this.prompt({
-            type    : 'input',
-            name    : 'vendor_name',
-            message : 'Your vendor name',
-            required : true
-        }, function (answers) {
+        var prompts = [
+            {
+                name: 'vendor_name',
+                message: 'Your vendor name'
+            },
+            {
+                type: 'input',
+                name: 'widget_name',
+                message: 'The name of the widget',
+                default: this.appname
+            },
+            {
+                type    : 'input',
+                name    : 'display_name',
+                message : 'The display name of the widget',
+                default :  this.widget_name
+            },
+            {
+                type    : 'input',
+                name    : 'version',
+                message : 'The widget version',
+                default : "1.0"
+            },
+            {
+                type    : 'input',
+                name    : 'authors',
+                message : 'Author(s) of the widget'
+            },
+            {
+                type    : 'input',
+                name    : 'email',
+                message : 'The contact e-email address(es)'
+            },
+            {
+                type    : 'input',
+                name    : 'description',
+                message : 'The description of the widget'
+            },
+            {
+                type    : 'input',
+                name    : 'wikiUrl',
+                message : 'The wikiUrl of the widget'
+            }
+        ];
 
-            // store app name
-            this.vendor_name = answers.vendor_name;
+        this.prompt(prompts, function (props) {
+
+            this.vendor_name  = props.vendor_name;
+            this.widget_name  = props.widget_name;
+            this.display_name = props.display_name;
+            this.version      = props.version;
+            this.authors      = props.authors;
+            this.email        = props.email;
+            this.description  = props.description;
+            this.wikiUrl      = props.wikiUrl;
 
             done();
+
         }.bind(this));
     },
 
-    /**
-     * Prompt for widget name
-     **/
-    promptWidgetName: function () {
-        var done = this.async();
-
-        this.prompt({
-            type    : 'input',
-            name    : 'widget_name',
-            message : 'The name of the widget',
-            required : true,
-            default : this.appname // Default to current folder name
-        }, function (answers) {
-
-            // store app name
-            this.widget_name = answers.widget_name;
-
-            done();
-        }.bind(this));
-    },
-
-    /**
-     * Prompt for widget name
-     **/
-    promptDisplayName: function () {
-        var done = this.async();
-
-        this.prompt({
-            type    : 'input',
-            name    : 'display_name',
-            message : 'The display name of the widget',
-            required : true,
-            default : this.widget_name
-        }, function (answers) {
-
-            // store app name
-            this.display_name = answers.display_name;
-
-            done();
-        }.bind(this));
-    },
-
-    /**
-     * Prompt for version
-     **/
-    promptVersion: function () {
-        var done = this.async();
-
-        this.prompt({
-            type    : 'input',
-            name    : 'version',
-            message : 'The widget version',
-            required : true,
-            default : "1.0"
-        }, function (answers) {
-
-            // store app name
-            this.version = answers.version;
-
-            done();
-        }.bind(this));
-    },
-
-    /**
-     * Prompt for authors
-     **/
-    promptAuthors: function () {
-        var done = this.async();
-
-        this.prompt({
-            type    : 'input',
-            name    : 'authors',
-            message : 'Author(s) of the widget',
-            required : true
-        }, function (answers) {
-
-            // store app name
-            this.authors = answers.authors;
-
-            done();
-        }.bind(this));
-    },
-
-    /**
-     * Prompt for mail
-     **/
-    promptMail: function () {
-        var done = this.async();
-
-        this.prompt({
-            type    : 'input',
-            name    : 'email',
-            message : 'The contact e-email address(es)',
-            required : true
-        }, function (answers) {
-
-            // store app name
-            this.email = answers.email;
-
-            done();
-        }.bind(this));
-    },
-
-    /**
-     * Prompt for description
-     **/
-    promptDescription: function () {
-        var done = this.async();
-
-        this.prompt({
-            type    : 'input',
-            name    : 'description',
-            message : 'The description of the widget',
-            required : true
-        }, function (answers) {
-
-            // store app name
-            this.description = answers.description;
-
-            done();
-        }.bind(this));
-    },
-
-    /**
-     * Prompt for description
-     **/
-    promptWiki: function () {
-        var done = this.async();
-
-        this.prompt({
-            type    : 'input',
-            name    : 'wikiUrl',
-            message : 'The wikiUrl of the widget',
-            optional : true
-        }, function (answers) {
-
-            // store app name
-            this.wikiUrl = answers.wikiUrl;
-
-            done();
-        }.bind(this));
-    },
 
     /**
      * Creates directories
