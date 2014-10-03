@@ -17,7 +17,8 @@
     <Platform.StateProperties>
     </Platform.StateProperties>
     <Platform.Wiring>
-        <InputEndpoint name="urlSlot" type="text" label="Photo URL" description="The URL of a photo" friendcode="url" />
+<%= inputEndpoints %>
+<%= outputEndpoints %>
     </Platform.Wiring>
 
     <Platform.Link>

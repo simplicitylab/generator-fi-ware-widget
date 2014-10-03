@@ -58,19 +58,46 @@ module.exports = yeoman.generators.Base.extend({
                 type    : 'input',
                 name    : 'wikiUrl',
                 message : 'The wikiUrl of the widget'
+            },
+            // prompt for generating input endpoints
+            {
+                name: 'generateInputEndpoints',
+                type: 'confirm',
+                message: 'Do you want to generate input endpoints?'
+            }, {
+                when: function (response) {
+                    return response.generateInputEndpoints;
+                },
+                name: 'numberOfInputEndpoints',
+                message: 'How many number of input endpoints ?'
+            },
+            {
+                name: 'generateOutputEndpoints',
+                type: 'confirm',
+                message: 'Do you want to generate output endpoints?'
+            }, {
+                when: function (response) {
+                    return response.generateOutputEndpoints;
+                },
+                name: 'numberOfOutputEndpoints',
+                message: 'How many number of output endpoints ?'
             }
         ];
 
         this.prompt(prompts, function (props) {
 
-            this.vendor_name  = props.vendor_name;
-            this.widget_name  = props.widget_name;
-            this.display_name = props.display_name;
-            this.version      = props.version;
-            this.authors      = props.authors;
-            this.email        = props.email;
-            this.description  = props.description;
-            this.wikiUrl      = props.wikiUrl;
+            this.vendor_name              = props.vendor_name;
+            this.widget_name              = props.widget_name;
+            this.display_name             = props.display_name;
+            this.version                  = props.version;
+            this.authors                  = props.authors;
+            this.email                    = props.email;
+            this.description              = props.description;
+            this.wikiUrl                  = props.wikiUrl;
+            this.generateInputEndpoints   = props.generateInputEndpoints;
+            this.numberOfInputEndpoints   = props.numberOfInputEndpoints;
+            this.generateOutputEndpoints  = props.generateOutputEndpoints;
+            this.numberOfOutputEndpoints  = props.numberOfOutputEndpoints;
 
             done();
 
@@ -92,6 +119,35 @@ module.exports = yeoman.generators.Base.extend({
      */
     copyFiles: function() {
 
+        /**
+         * Generate input endpoints
+         */
+        var inputEndpoints = '';
+
+        if (this.generateInputEndpoints) {
+            for( var i = 0, l = this.numberOfInputEndpoints; i < l ; i++ ) {
+                inputEndpoints += '\t';
+                inputEndpoints += '<InputEndpoint >';
+                inputEndpoints += '\n';
+            }
+        }
+
+        /**
+         * Generate output endpoints
+         */
+        var outputEndpoints = '';
+
+        if (this.generateOutputEndpoints) {
+            for( var i = 0, l = this.numberOfOutputEndpoints; i < l ; i++ ) {
+                outputEndpoints += '\t';
+                outputEndpoints += '<OutputEndpoint >';
+                outputEndpoints += '\n';
+            }
+        }
+
+        /**
+         * Create configuration context
+         */
         var config_context = {
             vendor_name : this.vendor_name,
             widget_name : this.widget_name,
@@ -100,7 +156,9 @@ module.exports = yeoman.generators.Base.extend({
             authors : this.authors,
             email : this.email,
             description: this.description,
-            wikiUrl: this.wikiUrl
+            wikiUrl: this.wikiUrl,
+            inputEndpoints : inputEndpoints,
+            outputEndpoints: outputEndpoints
         };
 
         this.template("_config.xml", "config.xml", config_context);
