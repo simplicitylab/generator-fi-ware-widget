@@ -14,4 +14,4 @@ A YeoMan generater that generates a Fi-Ware skeleton widget
 
 Through the interactive terminal you can let the generator create a Grunt build script. 
 
-The script creates the Fi-Ware Widget file (build/mywidget.wgt) based on the code that it finds in the src directory.
+The script creates a Fi-Ware Widget file (build/mywidget.wgt) based on the code that it finds in the src directory.
