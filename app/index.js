@@ -203,7 +203,7 @@ module.exports = yeoman.generators.Base.extend({
         this.template("_config.xml", src_dir + "config.xml", config_context);
         this.template("_index.html", src_dir + "index.html", config_context);
         this.template("_main.js", src_dir + "js/main.js");
-        this.template("_main.css", src_dir + "css/main.css");
+        this.template("_style.css", src_dir + "css/style.css");
 
         // check if grunt build script needs to be generated
         if (this.generateGruntBuildScript) {
