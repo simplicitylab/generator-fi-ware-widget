@@ -149,7 +149,7 @@ module.exports = yeoman.generators.Base.extend({
         if (this.generateInputEndpoints) {
             for( var i = 1, l = this.numberOfInputEndpoints; i <= l ; i++ ) {
                 inputEndpoints += '\t';
-                inputEndpoints += '<InputEndpoint name="name_' + i + '" type="text" description="description ' + i +'" label="label ' + i + '" action_label="action label ' + i + '" friendcode="friendcode ' + i + '" >';
+                inputEndpoints += '<InputEndpoint name="name_' + i + '" type="text" description="description ' + i +'" label="label ' + i + '" action_label="action label ' + i + '" friendcode="friendcode ' + i + '" />';
 
                 if (i != l) {
                     inputEndpoints += '\n';
@@ -166,7 +166,7 @@ module.exports = yeoman.generators.Base.extend({
         if (this.generateOutputEndpoints) {
             for( var i = 1, l = this.numberOfOutputEndpoints; i <= l ; i++ ) {
                 outputEndpoints += '\t';
-                outputEndpoints += '<OutputEndpoint name="name_' + i + '" type="text" description="description ' + i +'" label="label ' + i + '" action_label="action label ' + i + '" friendcode="friendcode ' + i + '" >';
+                outputEndpoints += '<OutputEndpoint name="name_' + i + '" type="text" description="description ' + i +'" label="label ' + i + '" action_label="action label ' + i + '" friendcode="friendcode ' + i + '" />';
 
                 if (i != l) {
                     outputEndpoints += '\n';

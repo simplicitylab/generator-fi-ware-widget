@@ -6,13 +6,15 @@ module.exports = function(grunt) {
 
         // compress files
         compress: {
-            main : {
+            main: {
                 options: {
-                    archive: '<%= output_name_compressed %>.zip'
+                    archive : "build/<%= output_name_compressed %>.zip"
                 },
                 files: [
                     {
-                        src: ['src/**']
+                        expand: true,
+                        cwd: 'src',
+                        src: ['**']
                     }
                 ]
             }
@@ -21,7 +23,7 @@ module.exports = function(grunt) {
         // rename files
         rename: {
             moveThis: {
-                src: '<%= output_name_compressed %>.zip',
+                src: 'build/<%= output_name_compressed %>.zip',
                 dest: 'build/<%= output_name_compressed %>.wgt'
             }
         }
