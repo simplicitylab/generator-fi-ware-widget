@@ -1,0 +1,9 @@
+{
+    "name": "<%= widget_name %>",
+    "version": "<%= version %>",
+    "devDependencies": {
+        "grunt": "~0.4.5",
+        "grunt-contrib-compress": "~0.12.0",
+        "grunt-rename": "~0.1.4"
+    }
+}

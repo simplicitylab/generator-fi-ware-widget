@@ -37,7 +37,7 @@ module.exports = yeoman.generators.Base.extend({
                 type    : 'input',
                 name    : 'version',
                 message : 'The widget version',
-                default : "1.0"
+                default : "1.0.0"
             },
             {
                 type    : 'input',
@@ -85,7 +85,14 @@ module.exports = yeoman.generators.Base.extend({
                 name: 'numberOfOutputEndpoints',
                 message: 'How many number of output endpoints ?',
                 default: 1
-            }
+            },
+            // prompt for generating grunt build file
+            {
+                name: 'generateGruntBuildScript',
+                type: 'confirm',
+                message: 'Do you want to generate a Grunt build script?'
+            },
+
         ];
 
         this.prompt(prompts, function (props) {
@@ -102,6 +109,7 @@ module.exports = yeoman.generators.Base.extend({
             this.numberOfInputEndpoints   = props.numberOfInputEndpoints;
             this.generateOutputEndpoints  = props.generateOutputEndpoints;
             this.numberOfOutputEndpoints  = props.numberOfOutputEndpoints;
+            this.generateGruntBuildScript = props.generateGruntBuildScript;
 
             done();
 
@@ -114,9 +122,18 @@ module.exports = yeoman.generators.Base.extend({
      **/
     createDirectories: function () {
 
-        this.mkdir("js");
-        this.mkdir("css");
-        this.mkdir("images");
+        var src_dir = '';
+        if (this.generateGruntBuildScript) {
+            // construct src directory
+            src_dir = 'src/';
+
+            // create buil directory
+            this.mkdir('build');
+        }
+
+        this.mkdir(src_dir + "js");
+        this.mkdir(src_dir + "css");
+        this.mkdir(src_dir + "images");
     },
 
     /**
@@ -133,7 +150,6 @@ module.exports = yeoman.generators.Base.extend({
             for( var i = 1, l = this.numberOfInputEndpoints; i <= l ; i++ ) {
                 inputEndpoints += '\t';
                 inputEndpoints += '<InputEndpoint name="name_' + i + '" type="text" description="description ' + i +'" label="label ' + i + '" action_label="action label ' + i + '" friendcode="friendcode ' + i + '" >';
-
 
                 if (i != l) {
                     inputEndpoints += '\n';
@@ -174,7 +190,25 @@ module.exports = yeoman.generators.Base.extend({
             outputEndpoints: outputEndpoints
         };
 
-        this.template("_config.xml", "config.xml", config_context);
+        // construct src directory
+        var src_dir = '';
+        if (this.generateGruntBuildScript) {
+            src_dir = 'src/';
+        }
+
+        // copy files from template directory
+        this.template("_config.xml", src_dir + "config.xml", config_context);
+
+        // check if grunt build script needs to be generated
+        if (this.generateGruntBuildScript) {
+            // generate output name for compressed file
+            var output_name_compressed = this.widget_name.toLowerCase().replace(/ /g,"_");
+
+            // copy grunt related files
+            this.template("_package.json", "package.json", config_context);
+            this.template("_Gruntfile.js", "Gruntfile.js", { output_name_compressed : output_name_compressed });
+        }
+
     }
     
 
