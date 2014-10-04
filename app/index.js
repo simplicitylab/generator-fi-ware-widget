@@ -204,13 +204,9 @@ module.exports = yeoman.generators.Base.extend({
         this.template("_index.html", src_dir + "index.html", config_context);
         this.template("_main.js", src_dir + "js/main.js");
         this.template("_main.css", src_dir + "css/main.css");
-        this.template("_catalogue.png", src_dir + "images/catalogue.png");
-        this.template("_catalogueSmartphone.png", src_dir + "images/catalogueSmartphone.png");
 
         // check if grunt build script needs to be generated
         if (this.generateGruntBuildScript) {
-
-
             // copy grunt related files
             this.template("_package.json", "package.json", { friendly_name: friendly_name, version : this.version } );
             this.template("_Gruntfile.js", "Gruntfile.js", { output_name_compressed : friendly_name });

@@ -8,8 +8,8 @@
         <Author><%= authors %></Author>
         <Mail><%= email %></Mail>
         <Description><%= description %></Description>
-        <ImageURI>images/catalogue.png</ImageURI>
-        <iPhoneImageURI>images/catalogueSmartphone.png</iPhoneImageURI>
+        <ImageURI></ImageURI>
+        <iPhoneImageURI></iPhoneImageURI>
         <WikiURI><%= wikiUrl %></WikiURI>
     </Catalog.ResourceDescription>
     <Platform.Preferences>
