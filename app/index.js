@@ -196,6 +196,9 @@ module.exports = yeoman.generators.Base.extend({
             src_dir = 'src/';
         }
 
+        // friendly name
+        var friendly_name = this.widget_name.toLowerCase().replace(/ /g,"_");
+
         // copy files from template directory
         this.template("_config.xml", src_dir + "config.xml", config_context);
         this.template("_index.html", src_dir + "index.html", config_context);
@@ -206,12 +209,11 @@ module.exports = yeoman.generators.Base.extend({
 
         // check if grunt build script needs to be generated
         if (this.generateGruntBuildScript) {
-            // generate output name for compressed file
-            var output_name_compressed = this.widget_name.toLowerCase().replace(/ /g,"_");
+
 
             // copy grunt related files
-            this.template("_package.json", "package.json", config_context);
-            this.template("_Gruntfile.js", "Gruntfile.js", { output_name_compressed : output_name_compressed });
+            this.template("_package.json", "package.json", { friendly_name: friendly_name, version : this.version } );
+            this.template("_Gruntfile.js", "Gruntfile.js", { output_name_compressed : friendly_name });
         }
 
     }

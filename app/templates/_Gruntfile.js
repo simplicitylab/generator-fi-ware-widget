@@ -22,7 +22,7 @@ module.exports = function(grunt) {
         rename: {
             moveThis: {
                 src: '<%= output_name_compressed %>.zip',
-                dest: 'build/<%= output_name_compressed %>.wgz'
+                dest: 'build/<%= output_name_compressed %>.wgt'
             }
         }
 

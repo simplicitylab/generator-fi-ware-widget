@@ -1,5 +1,5 @@
 {
-    "name": "<%= widget_name %>",
+    "name": "<%= friendly_name %>",
     "version": "<%= version %>",
     "devDependencies": {
         "grunt": "~0.4.5",
