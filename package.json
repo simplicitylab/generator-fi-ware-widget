@@ -1,7 +1,7 @@
 {
   "name": "generator-fi-ware-widget",
   "version": "0.1.1",
-  "description": “A Yeoman generator that generates a skeleton fi-ware-widget",
+  "description": "A Yeoman generator that generates a skeleton fi-ware-widget",
   "author":{
     "name": "Glenn De Backer",
     "email": "glenn@simplicity.be",
