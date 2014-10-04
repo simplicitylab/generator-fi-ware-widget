@@ -59,28 +59,32 @@ module.exports = yeoman.generators.Base.extend({
                 name    : 'wikiUrl',
                 message : 'The wikiUrl of the widget'
             },
-            // prompt for generating input endpoints
+            // prompt for generating input and output endpoints
             {
                 name: 'generateInputEndpoints',
                 type: 'confirm',
-                message: 'Do you want to generate input endpoints?'
-            }, {
+                message: 'Do you want to generate input endpoints?',
+            },
+            {
                 when: function (response) {
                     return response.generateInputEndpoints;
                 },
                 name: 'numberOfInputEndpoints',
-                message: 'How many number of input endpoints ?'
+                message: 'How many number of input endpoints ?',
+                default: 1
             },
             {
                 name: 'generateOutputEndpoints',
                 type: 'confirm',
-                message: 'Do you want to generate output endpoints?'
-            }, {
+                message: 'Do you want to generate output endpoints?',
+            },
+            {
                 when: function (response) {
                     return response.generateOutputEndpoints;
                 },
                 name: 'numberOfOutputEndpoints',
-                message: 'How many number of output endpoints ?'
+                message: 'How many number of output endpoints ?',
+                default: 1
             }
         ];
 
@@ -109,6 +113,7 @@ module.exports = yeoman.generators.Base.extend({
      * Creates directories
      **/
     createDirectories: function () {
+
         this.mkdir("js");
         this.mkdir("css");
         this.mkdir("images");
@@ -125,10 +130,15 @@ module.exports = yeoman.generators.Base.extend({
         var inputEndpoints = '';
 
         if (this.generateInputEndpoints) {
-            for( var i = 0, l = this.numberOfInputEndpoints; i < l ; i++ ) {
+            for( var i = 1, l = this.numberOfInputEndpoints; i <= l ; i++ ) {
                 inputEndpoints += '\t';
-                inputEndpoints += '<InputEndpoint >';
-                inputEndpoints += '\n';
+                inputEndpoints += '<InputEndpoint name="name_' + i + '" type="text" description="description ' + i +'" label="label ' + i + '" action_label="action label ' + i + '" friendcode="friendcode ' + i + '" >';
+
+
+                if (i != l) {
+                    inputEndpoints += '\n';
+                }
+
             }
         }
 
@@ -138,10 +148,13 @@ module.exports = yeoman.generators.Base.extend({
         var outputEndpoints = '';
 
         if (this.generateOutputEndpoints) {
-            for( var i = 0, l = this.numberOfOutputEndpoints; i < l ; i++ ) {
+            for( var i = 1, l = this.numberOfOutputEndpoints; i <= l ; i++ ) {
                 outputEndpoints += '\t';
-                outputEndpoints += '<OutputEndpoint >';
-                outputEndpoints += '\n';
+                outputEndpoints += '<OutputEndpoint name="name_' + i + '" type="text" description="description ' + i +'" label="label ' + i + '" action_label="action label ' + i + '" friendcode="friendcode ' + i + '" >';
+
+                if (i != l) {
+                    outputEndpoints += '\n';
+                }
             }
         }
 
