@@ -215,6 +215,12 @@ module.exports = yeoman.generators.Base.extend({
                     },
                     {
                         type: 'input',
+                        name: 'action_label',
+                        message: 'What is the action label of the output?',
+                        default: "action label " + this.outputEndpointCounter
+                    },
+                    {
+                        type: 'input',
                         name: 'description',
                         message: 'What is the description of the output?',
                         default: "description " + this.outputEndpointCounter
@@ -232,6 +238,7 @@ module.exports = yeoman.generators.Base.extend({
                     self.generatedOutputs.push({
                         name : props.name,
                         label : props.label,
+                        action_label: props.action_label,
                         description : props.description,
                         friendcode: props.friendcode
                     });
@@ -303,14 +310,10 @@ module.exports = yeoman.generators.Base.extend({
         var inputEndpoints = '';
 
         if (this.generateInputEndpoints) {
-            for( var i = 1, l = this.numberOfInputEndpoints; i <= l ; i++ ) {
+            for( var i = 0, l = this.generatedInputs.length; i < l ; i++ ) {
                 inputEndpoints += '\t';
-                inputEndpoints += '<InputEndpoint name="name_' + i + '" type="text" description="description ' + i +'" label="label ' + i + '" action_label="action label ' + i + '" friendcode="friendcode ' + i + '" />';
-
-                if (i != l) {
-                    inputEndpoints += '\n';
-                }
-
+                inputEndpoints += '<InputEndpoint name="' + this.generatedInputs[i]['name'] + '" type="text" description="' + this.generatedInputs[i]['description'] + '" label="' + this.generatedInputs[i]['label'] + '" friendcode="' + this.generatedInputs[i]['friendcode'] + '" />';
+                inputEndpoints += '\n';
             }
         }
 
@@ -320,13 +323,10 @@ module.exports = yeoman.generators.Base.extend({
         var outputEndpoints = '';
 
         if (this.generateOutputEndpoints) {
-            for( var i = 1, l = this.numberOfOutputEndpoints; i <= l ; i++ ) {
+            for( var i = 0, l = this.generatedOutputs.length; i < l ; i++ ) {
                 outputEndpoints += '\t';
-                outputEndpoints += '<OutputEndpoint name="name_' + i + '" type="text" description="description ' + i +'" label="label ' + i + '" action_label="action label ' + i + '" friendcode="friendcode ' + i + '" />';
-
-                if (i != l) {
-                    outputEndpoints += '\n';
-                }
+                outputEndpoints += '<OutputEndpoint name="' + this.generatedOutputs[i]['name'] + '" type="text" description="' + this.generatedOutputs[i]['description'] + '" label="' + this.generatedOutputs[i]['label'] + '"  action_label="' + this.generatedOutputs[i]['action_label'] + '" friendcode="' + this.generatedOutputs[i]['friendcode'] + '" />';
+                outputEndpoints += '\n';
             }
         }
 
