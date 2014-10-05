@@ -181,6 +181,8 @@ module.exports = yeoman.generators.Base.extend({
                 // we are done
                 done();
             }
+        } else {
+            done();
         }
     },
 
@@ -252,6 +254,8 @@ module.exports = yeoman.generators.Base.extend({
                 // we are done
                 done();
             }
+        } else {
+            done();
         }
     },
 
