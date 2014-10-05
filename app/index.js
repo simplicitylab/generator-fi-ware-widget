@@ -141,7 +141,7 @@ module.exports = yeoman.generators.Base.extend({
                         type: 'input',
                         name: 'name',
                         message: 'What is the name of the input?',
-                        default: "name " + this.inputEndpointCounter
+                        default: "name_" + this.inputEndpointCounter
                     },
                     {
                         type: 'input',
@@ -159,7 +159,7 @@ module.exports = yeoman.generators.Base.extend({
                         type: 'input',
                         name: 'friendcode',
                         message: 'What is the friendcode of the input?',
-                        default: "friendcode " + this.inputEndpointCounter
+                        default: "friendcode_" + this.inputEndpointCounter
                     }
                 ];
 
@@ -207,7 +207,7 @@ module.exports = yeoman.generators.Base.extend({
                         type: 'input',
                         name: 'name',
                         message: 'What is the name of the output?',
-                        default: "name " + this.outputEndpointCounter
+                        default: "name_" + this.outputEndpointCounter
                     },
                     {
                         type: 'input',
@@ -231,7 +231,7 @@ module.exports = yeoman.generators.Base.extend({
                         type: 'input',
                         name: 'friendcode',
                         message: 'What is the friendcode of the output?',
-                        default: "friendcode " + this.outputEndpointCounter
+                        default: "friendcode_" + this.outputEndpointCounter
                     }
                 ];
 
