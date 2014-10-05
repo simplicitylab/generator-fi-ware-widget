@@ -3,11 +3,22 @@
 var yeoman = require('yeoman-generator');
 
 module.exports = yeoman.generators.Base.extend({
-  
+
     // The name `constructor` is important here
     constructor: function () {
         // Calling the super constructor is important so our generator is correctly setup
         yeoman.generators.Base.apply(this, arguments);
+    },
+
+    /**
+     * Init
+     */
+    init: function () {
+        this.inputEndpointCounter = 0;
+        this.generatedInputs = [];
+        this.outputEndpointCounter = 0;
+        this.generatedOutputs = [];
+
     },
 
     /**
@@ -85,13 +96,7 @@ module.exports = yeoman.generators.Base.extend({
                 name: 'numberOfOutputEndpoints',
                 message: 'How many number of output endpoints ?',
                 default: 1
-            },
-            // prompt for generating grunt build file
-            {
-                name: 'generateGruntBuildScript',
-                type: 'confirm',
-                message: 'Do you want to generate a Grunt build script?'
-            },
+            }
 
         ];
 
@@ -109,12 +114,163 @@ module.exports = yeoman.generators.Base.extend({
             this.numberOfInputEndpoints   = props.numberOfInputEndpoints;
             this.generateOutputEndpoints  = props.generateOutputEndpoints;
             this.numberOfOutputEndpoints  = props.numberOfOutputEndpoints;
+
+            done();
+
+        }.bind(this));
+    },
+
+
+    /**
+     * Generate input endpoints
+     */
+    promptInputEndpoints: function() {
+
+        var done = this.async();
+        var self = this;
+
+        if (this.generateInputEndpoints) {
+
+            if ( this.inputEndpointCounter < this.numberOfInputEndpoints ) {
+
+                // increase counter
+                this.inputEndpointCounter++;
+
+                var prompts = [
+                    {
+                        type: 'input',
+                        name: 'name',
+                        message: 'What is the name of the input?',
+                        default: "name " + this.inputEndpointCounter
+                    },
+                    {
+                        type: 'input',
+                        name: 'label',
+                        message: 'What is the label of the input?',
+                        default: "label " + this.inputEndpointCounter
+                    },
+                    {
+                        type: 'input',
+                        name: 'description',
+                        message: 'What is the description of the input?',
+                        default: "description " + this.inputEndpointCounter
+                    },
+                    {
+                        type: 'input',
+                        name: 'friendcode',
+                        message: 'What is the friendcode of the input?',
+                        default: "friendcode " + this.inputEndpointCounter
+                    }
+                ];
+
+                this.prompt(prompts, function (props) {
+
+                    self.generatedInputs.push({
+                        name : props.name,
+                        label : props.label,
+                        description : props.description,
+                        friendcode: props.friendcode
+                    });
+
+                    // call itself recursive
+                    self.promptInputEndpoints();
+                });
+
+
+            } else {
+                // we are done
+                done();
+            }
+        }
+    },
+
+
+    /**
+     * Generate output endpoints
+     */
+    promptOutputEndpoints: function() {
+
+        var done = this.async();
+        var self = this;
+
+        if (this.generateOutputEndpoints) {
+
+            if ( this.outputEndpointCounter < this.numberOfOutputEndpoints ) {
+
+                // increase counter
+                this.outputEndpointCounter++;
+
+                var prompts = [
+                    {
+                        type: 'input',
+                        name: 'name',
+                        message: 'What is the name of the output?',
+                        default: "name " + this.outputEndpointCounter
+                    },
+                    {
+                        type: 'input',
+                        name: 'label',
+                        message: 'What is the label of the output?',
+                        default: "label " + this.outputEndpointCounter
+                    },
+                    {
+                        type: 'input',
+                        name: 'description',
+                        message: 'What is the description of the output?',
+                        default: "description " + this.outputEndpointCounter
+                    },
+                    {
+                        type: 'input',
+                        name: 'friendcode',
+                        message: 'What is the friendcode of the output?',
+                        default: "friendcode " + this.outputEndpointCounter
+                    }
+                ];
+
+                this.prompt(prompts, function (props) {
+
+                    self.generatedOutputs.push({
+                        name : props.name,
+                        label : props.label,
+                        description : props.description,
+                        friendcode: props.friendcode
+                    });
+
+                    // call itself recursive
+                    self.promptOutputEndpoints();
+                });
+
+
+            } else {
+                // we are done
+                done();
+            }
+        }
+    },
+
+    /**
+     * Prompt for Grunt build script
+     */
+    promptGruntBuildFile: function () {
+        var done = this.async();
+
+        var prompts = [
+            // prompt for generating grunt build file
+            {
+                name: 'generateGruntBuildScript',
+                type: 'confirm',
+                message: 'Do you want to generate a Grunt build script?'
+            }
+        ];
+
+        this.prompt(prompts, function (props) {
             this.generateGruntBuildScript = props.generateGruntBuildScript;
 
             done();
 
         }.bind(this));
     },
+
 
 
     /**
